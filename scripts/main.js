@@ -13,3 +13,4 @@ var StorePicker = React.createClass({
     )
   }
 });
+
