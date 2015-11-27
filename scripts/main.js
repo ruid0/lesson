@@ -1,9 +1,14 @@
 var React = require('react'),
-  ReactDOM = require('react-dom');
+  ReactDOM = require('react-dom'),
+  ReactRouter = require('react-router'),
+  Router = ReactRouter.Router,
+  Route = ReactRouter.Route,
+  Navigation = ReactRouter.Navigation,
+  createBrowserHistory = require('history/lib/createBrowserHistory');
 
 /*
-  App
-*/
+ App
+ */
 
 var App = React.createClass({
   render: function() {
@@ -20,8 +25,8 @@ var App = React.createClass({
 });
 
 /*
-  Header
-*/
+ Header
+ */
 
 var Header = React.createClass({
   render: function() {
@@ -45,8 +50,8 @@ var Header = React.createClass({
 });
 
 /*
-  Order
-*/
+ Order
+ */
 
 var Order = React.createClass({
   render: function() {
@@ -57,31 +62,54 @@ var Order = React.createClass({
 });
 
 /*
-  Inventory
-*/
+ Inventory
+ */
 
 var Inventory = React.createClass({
   render: function() {
     return (
-      <p>Inventory</p>  
+      <p>Inventory</p>
     )
   }
 });
 
 /*
-  StorePicker commponent
+ StorePicker commponent
  */
 
 var StorePicker = React.createClass({
   render: function() {
     return (
       <form className="store-selector">
-      	<h2>Please enter a store</h2>
-      	<input type="text" ref="storeId"/>
-      	<input type="submit"/>
+        <h2>Please enter a store</h2>
+        <input type="text" ref="storeId"/>
+        <input type="submit"/>
       </form>
     )
   }
 });
 
-ReactDOM.render(<App/>, document.querySelector('#main'));
+/*
+  Not found
+ */
+
+var NotFound = React.createClass({
+  render: function() {
+    return <h1>Not Found</h1>
+  }
+});
+
+/*
+ Routes
+ */
+
+
+var routes = (
+  <Router history={createBrowserHistory()}>
+    <Route path="/" component={StorePicker}/>
+    <Route path="/store/:storeId" component={App}/>
+    <Route path="*" component={NotFound}/>
+  </Router>
+);
+
+ReactDOM.render(routes, document.querySelector('#main'));
